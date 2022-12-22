@@ -1,0 +1,66 @@
+[
+    {
+        "value": "0-9",
+        "count": 1,
+        "colors": [
+            "green",
+            "red",
+            "blue",
+            "yellow"
+        ]
+    },
+    {
+        "value": "1-9",
+        "count": 1,
+        "colors": [
+            "green",
+            "red",
+            "blue",
+            "yellow"
+        ]
+    },
+    {
+        "value": "+4,wild",
+        "count": 4,
+        "colors": [
+            "black"
+        ]
+    },
+    {
+        "value": "wild",
+        "count": 4,
+        "colors": [
+            "black"
+        ]
+    },
+    {
+        "value": "reverse",
+        "count": 2,
+        "colors": [
+            "green",
+            "red",
+            "blue",
+            "yellow"
+        ]
+    },
+    {
+        "value": "skip",
+        "count": 2,
+        "colors": [
+            "green",
+            "red",
+            "blue",
+            "yellow"
+        ]
+    },
+    {
+        "value": "+2",
+        "count": 2,
+        "colors": [
+            "green",
+            "red",
+            "blue",
+            "yellow"
+        ]
+    }
+]
