@@ -41,7 +41,7 @@ func (c *classic) DrawCard() engine.Card {
 }
 
 func (c *classic) Shuffle(times int) {
-	if times == 0 {
+	if times <= 0 {
 		return
 	}
 
@@ -100,7 +100,7 @@ func (c *classic) SetNextPlayer(nextPlayer engine.Player) {
 }
 
 func (c *classic) PlayCard(player engine.Player, card engine.Card) error {
-	result, err := card.Play(c.discardedPile)
+	result, err := card.Play(c.currentColor, c.discardedPile)
 	if err != nil {
 		return err
 	}
