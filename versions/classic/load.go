@@ -10,9 +10,11 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+
+	"github.com/tecnologer/uno/src/engine"
 )
 
-func loadCards() ([]*card, error) {
+func loadCards() ([]engine.Card, error) {
 	dir, e := getCurrentDir()
 	if e != nil {
 		return nil, fmt.Errorf("classic.load: %w. get current dir.", e)
@@ -30,7 +32,7 @@ func loadCards() ([]*card, error) {
 		return nil, fmt.Errorf("classic.load: %w. unmarshal json.", e)
 	}
 
-	cards := make([]*card, 0)
+	cards := make([]engine.Card, 0)
 	for _, raw := range rawCards {
 		for i := 0; i < raw.Count; i++ {
 			for _, color := range raw.Colors {

@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"io/ioutil"
 	"testing"
+
+	"github.com/tecnologer/uno/src/engine"
 )
 
 func Test_classic_Shuffle(t *testing.T) {
 	type fields struct {
-		deck    []*card
-		players []*player
+		drawPile []engine.Card
+		players  []engine.Player
 	}
 
 	cards, _ := loadCards()
@@ -25,7 +27,7 @@ func Test_classic_Shuffle(t *testing.T) {
 		{
 			name: "shuffle_2",
 			fields: fields{
-				deck: append([]*card{}, cards...),
+				drawPile: append([]engine.Card{}, cards...),
 			},
 			args: args{
 				times: 2,
@@ -34,7 +36,7 @@ func Test_classic_Shuffle(t *testing.T) {
 		{
 			name: "shuffle_random",
 			fields: fields{
-				deck: append([]*card{}, cards...),
+				drawPile: append([]engine.Card{}, cards...),
 			},
 			args: args{
 				times: -1,
@@ -44,12 +46,12 @@ func Test_classic_Shuffle(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := &classic{
-				deck:    tt.fields.deck,
-				players: tt.fields.players,
+				drawPile: tt.fields.drawPile,
+				players:  tt.fields.players,
 			}
 			c.Shuffle(tt.args.times)
 
-			data, err := json.MarshalIndent(c.deck, "", "  ")
+			data, err := json.MarshalIndent(c.drawPile, "", "  ")
 			if err != nil {
 				t.Error(err)
 			}

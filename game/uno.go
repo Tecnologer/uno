@@ -1,13 +1,13 @@
-package engine
+package game
 
-import "github.com/tecnologer/uno/src/game"
+import "github.com/tecnologer/uno/src/engine"
 
 const (
 	leftDirection  = "left"
 	rigthDirection = "rigth"
 )
 
-func StartGame(game game.Game) {
+func StartGame(game engine.Game) {
 	firstCard, firstPlayer := game.Start()
 
 	game.Shuffle(0)
