@@ -1,6 +1,7 @@
 package engine
 
 type Game interface {
+	New() chan interface{}
 	Start() (Card, Player)
 	Shuffle(int)
 	GetDiscardedPile() []Card

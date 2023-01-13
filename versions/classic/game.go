@@ -1,6 +1,7 @@
 package classic
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 
@@ -20,17 +21,39 @@ type classic struct {
 	drawPile      []engine.Card
 	discardedPile []engine.Card
 	players       []engine.Player
+	output        chan interface{}
 }
 
-func (c *classic) Start() (engine.Card, engine.Player) {
-	if len(c.players) == 0 {
-		return nil, nil
+func New() *classic {
+	return &classic{}
+}
+
+func (c *classic) New() (_ chan interface{}, err error) {
+	if c.output != nil {
+		close(c.output)
+	}
+
+	c.drawPile, err = loadCards()
+	if err != nil {
+		return nil, err
+	}
+
+	c.direction = rigth2Left
+
+	c.output = make(chan interface{})
+
+	return c.output, nil
+}
+
+func (c *classic) Start() (engine.Card, engine.Player, error) {
+	if len(c.players) < 2 {
+		return nil, nil, fmt.Errorf("it required at least 2 players to start")
 	}
 
 	player := c.players[0]
 	card := c.DrawCard()
 
-	return card, player
+	return card, player, nil
 }
 
 func (c *classic) DrawCard() engine.Card {
