@@ -1,8 +1,9 @@
 package engine
 
 type Game interface {
-	New() chan interface{}
-	Start() (Card, Player)
+	New() (chan Result, error)
+	GetVersionName() string
+	Start() (Card, Player, error)
 	Shuffle(int)
 	GetDiscardedPile() []Card
 	GetDrawPile() []Card
