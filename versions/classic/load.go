@@ -1,4 +1,4 @@
-package classic
+package main
 
 import (
 	"encoding/json"
@@ -17,19 +17,19 @@ import (
 func loadCards() ([]engine.Card, error) {
 	dir, e := getCurrentDir()
 	if e != nil {
-		return nil, fmt.Errorf("classic.load: %w. get current dir.", e)
+		return nil, fmt.Errorf("classic.load: %v. get current dir", e)
 	}
 	cardsJsonPath := filepath.Join(dir, "cards.json")
 
 	data, e := ioutil.ReadFile(cardsJsonPath)
 	if e != nil {
-		return nil, fmt.Errorf("classic.load: %w. read json file %s.", e, cardsJsonPath)
+		return nil, fmt.Errorf("classic.load: %v. read json file %s", e, cardsJsonPath)
 	}
 
 	var rawCards []*rawCard
 	e = json.Unmarshal(data, &rawCards)
 	if e != nil {
-		return nil, fmt.Errorf("classic.load: %w. unmarshal json.", e)
+		return nil, fmt.Errorf("classic.load: %v. unmarshal json", e)
 	}
 
 	cards := make([]engine.Card, 0)

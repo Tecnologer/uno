@@ -1,4 +1,4 @@
-package classic
+package main
 
 import "github.com/tecnologer/uno/src/engine"
 
@@ -27,5 +27,5 @@ func (r *result) GetNextColor() string {
 }
 
 func (r *result) GetDeck() []engine.Card {
-	return r.GetDeck()
+	return r.deck
 }

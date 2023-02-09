@@ -1,11 +1,10 @@
-package classic
+package main
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
 
 	"github.com/tecnologer/uno/src/engine"
+	"github.com/tecnologer/uno/src/tools/cards"
 )
 
 const (
@@ -21,14 +20,23 @@ type classic struct {
 	drawPile      []engine.Card
 	discardedPile []engine.Card
 	players       []engine.Player
-	output        chan interface{}
+	output        chan engine.Result
 }
 
-func New() *classic {
-	return &classic{}
+var (
+	minversion string
+	version    string
+)
+
+func New() classic {
+	return classic{}
 }
 
-func (c *classic) New() (_ chan interface{}, err error) {
+func (c *classic) GetVersionName() string {
+	return fmt.Sprintf("UNO Classic (v%s.%s)", version, minversion)
+}
+
+func (c *classic) New() (_ chan engine.Result, err error) {
 	if c.output != nil {
 		close(c.output)
 	}
@@ -40,7 +48,7 @@ func (c *classic) New() (_ chan interface{}, err error) {
 
 	c.direction = rigth2Left
 
-	c.output = make(chan interface{})
+	c.output = make(chan engine.Result)
 
 	return c.output, nil
 }
@@ -64,46 +72,7 @@ func (c *classic) DrawCard() engine.Card {
 }
 
 func (c *classic) Shuffle(times int) {
-	if times <= 0 {
-		return
-	}
-
-	if times < 0 {
-		times = rand.Intn(6) + 1
-	}
-
-	positions := make(map[int]int)
-	shuffledDeck := make([]engine.Card, len(c.drawPile))
-	var i int
-
-	for _, card := range c.drawPile {
-		i = getRandomPos(positions, len(c.drawPile))
-		positions[i]++
-		shuffledDeck[i] = card
-	}
-
-	c.drawPile = shuffledDeck
-
-	times--
-	c.Shuffle(times)
-}
-
-func getRandomPos(taken map[int]int, limit int) int {
-	n := rand.Intn(limit)
-	if _, ok := taken[n]; !ok {
-		return n
-	}
-
-	seed := time.Now().Unix()
-	for {
-		rand.Seed(seed)
-		n = rand.Intn(limit)
-		seed++
-
-		if _, ok := taken[n]; !ok {
-			return n
-		}
-	}
+	c.drawPile = cards.Shuffle(c.drawPile, times)
 }
 
 func (g *classic) GetDrawPile() []engine.Card {
@@ -128,9 +97,7 @@ func (c *classic) PlayCard(player engine.Player, card engine.Card) error {
 		return err
 	}
 
-	if result.IsReverse() {
-
-	}
+	c.output <- result
 
 	return nil
 }
@@ -145,4 +112,7 @@ func (c *classic) SetDirection(direction string) {
 
 func (c *classic) SayUno(player engine.Player) {
 	c.playerSaidUno = player
+}
+func (c *classic) GetDiscardedPile() []engine.Card {
+	return c.discardedPile
 }
