@@ -1,6 +1,6 @@
 package main
 
-import "github.com/tecnologer/uno/src/engine"
+import "github.com/tecnologer/uno/engine"
 
 type player struct {
 	cards []engine.Card

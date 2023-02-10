@@ -1,9 +1,9 @@
-package game
+package uno
 
 import (
 	"log"
 
-	"github.com/tecnologer/uno/src/engine"
+	"github.com/tecnologer/uno/engine"
 )
 
 const (

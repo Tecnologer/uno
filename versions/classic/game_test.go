@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/tecnologer/uno/src/engine"
+	"github.com/tecnologer/uno/engine"
 )
 
 func Test_classic_Shuffle(t *testing.T) {

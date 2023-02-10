@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/tecnologer/uno/src/engine"
+	"github.com/tecnologer/uno/engine"
 	"github.com/tecnologer/uno/src/tools/cards"
 )
 

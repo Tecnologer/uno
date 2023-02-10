@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tecnologer/uno/src/engine"
+	"github.com/tecnologer/uno/engine"
 )
 
 func loadCards() ([]engine.Card, error) {

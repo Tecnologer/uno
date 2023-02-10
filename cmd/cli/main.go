@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/tecnologer/uno/engine"
 	"github.com/tecnologer/uno/plugins"
-	"github.com/tecnologer/uno/src/engine"
 )
 
 var (
@@ -67,6 +67,6 @@ func selectOptions() {
 
 func displayAvailableGames() {
 	for _, game := range availableGames {
-		fmt.Printf("\t- %s\n", game.GetVersionName())
+		fmt.Printf("\t- %s\n", game.GetMetadata())
 	}
 }

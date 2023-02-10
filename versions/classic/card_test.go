@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/tecnologer/uno/src/engine"
+	"github.com/tecnologer/uno/engine"
 )
 
 func Test_card_GetValue(t *testing.T) {

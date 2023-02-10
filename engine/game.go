@@ -2,7 +2,7 @@ package engine
 
 type Game interface {
 	New() (chan Result, error)
-	GetVersionName() string
+	GetMetadata() Metadata
 	Start() (Card, Player, error)
 	Shuffle(int)
 	GetDiscardedPile() []Card
