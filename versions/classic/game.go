@@ -13,6 +13,7 @@ const (
 )
 
 type classic struct {
+	metadata      metadata
 	direction     string
 	currentColor  string
 	currentPlayer engine.Player
@@ -23,17 +24,12 @@ type classic struct {
 	output        chan engine.Result
 }
 
-var (
-	minversion string
-	version    string
-)
-
 func New() classic {
 	return classic{}
 }
 
-func (c *classic) GetVersionName() string {
-	return fmt.Sprintf("UNO Classic (v%s.%s)", version, minversion)
+func (c *classic) GetMetadata() engine.Metadata {
+	return c.metadata
 }
 
 func (c *classic) New() (_ chan engine.Result, err error) {
