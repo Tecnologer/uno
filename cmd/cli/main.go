@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
+	"strings"
 
+	"github.com/tecnologer/uno"
 	"github.com/tecnologer/uno/engine"
 	"github.com/tecnologer/uno/plugins"
 )
@@ -11,8 +13,7 @@ import (
 var (
 	options = []string{
 		"List games",
-		"Select Game",
-		"Play",
+		"Play Game",
 	}
 
 	availableGames []engine.Game
@@ -62,11 +63,41 @@ func selectOptions() {
 	switch options[option-1] {
 	case "List games":
 		displayAvailableGames()
+	case "Play Game":
+		playGame()
 	}
 }
 
 func displayAvailableGames() {
-	for _, game := range availableGames {
-		fmt.Printf("\t- %s\n", game.GetMetadata())
+	for i, game := range availableGames {
+		fmt.Printf("\t+ %d) %s\n", i+1, game.GetMetadata())
 	}
+}
+
+func playGame() {
+	displayAvailableGames()
+
+	var option string
+	_, e := fmt.Scanf("%s", &option)
+	if e != nil {
+		fmt.Printf("invalid game input (%v). try again.", e)
+		playGame()
+		return
+	}
+
+	var game engine.Game
+	for _, g := range availableGames {
+		if strings.EqualFold(g.GetMetadata().GetName(), option) {
+			game = g
+			break
+		}
+	}
+
+	if game == nil {
+		fmt.Printf("invalid game: %s. try again.", option)
+		playGame()
+		return
+	}
+
+	uno.StartGame(game)
 }

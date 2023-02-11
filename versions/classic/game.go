@@ -109,6 +109,11 @@ func (c *classic) SetDirection(direction string) {
 func (c *classic) SayUno(player engine.Player) {
 	c.playerSaidUno = player
 }
+
 func (c *classic) GetDiscardedPile() []engine.Card {
 	return c.discardedPile
+}
+
+func (c *classic) Close() {
+	close(c.output)
 }
