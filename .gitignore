@@ -3,3 +3,4 @@
 coverage.html
 *.out
 *.so
+docs/**/out/*

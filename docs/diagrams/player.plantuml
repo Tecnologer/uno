@@ -1,0 +1,38 @@
+@startuml "player_join"
+    actor player
+    control engine
+    participant game
+
+    player -> engine : join
+    activate engine 
+        engine -> game : add player
+        activate game 
+            game -> game : register player
+            activate game 
+                game --> game : com chan 
+            deactivate game
+            engine <-- game : player's com chan
+        deactivate game
+        player <-- engine : com chan
+    deactivate engine
+@enduml
+
+@startuml "player_can_play_card"
+    actor player
+    control engine
+    participant game
+    participant card
+
+    player -> engine : play card
+    activate engine
+        engine -> game : play card
+        activate game
+            game -> card : play
+            activate card
+                game <-- card : result
+            deactivate card
+            engine <-- game : result
+        deactivate game
+        player <-- engine : result
+    deactivate engine
+@enduml
