@@ -53,7 +53,7 @@ func (c *card) GetColor() string {
 	return c.Color
 }
 
-func (c *card) Play(currentColor string, d []engine.Card) (engine.Result, error) {
+func (c *card) Play(currentColor string, d []engine.Card) (engine.CardResult, error) {
 	if canPlay, err := c.CanPlay(currentColor, d); !canPlay {
 		return nil, err
 	}

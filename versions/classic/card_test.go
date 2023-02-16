@@ -659,7 +659,7 @@ func Test_card_Play(t *testing.T) {
 		name    string
 		fields  fields
 		args    args
-		want    engine.Result
+		want    engine.CardResult
 		wantErr bool
 	}{
 		{
