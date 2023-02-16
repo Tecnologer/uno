@@ -5,7 +5,6 @@ import (
 	"log"
 	"strings"
 
-	"github.com/tecnologer/uno"
 	"github.com/tecnologer/uno/engine"
 	"github.com/tecnologer/uno/plugins"
 )
@@ -99,5 +98,5 @@ func playGame() {
 		return
 	}
 
-	uno.StartGame(game)
+	// uno.StartGame(game)
 }
