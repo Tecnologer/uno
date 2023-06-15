@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	left2Rigth = "left_rigth"
-	rigth2Left = "rigth_left"
+	left2Right = "left_right"
+	right2Left = "right_left"
 )
 
 type classic struct {
@@ -42,7 +42,7 @@ func (c *classic) New() (_ chan engine.Result, err error) {
 		return nil, err
 	}
 
-	c.direction = rigth2Left
+	c.direction = right2Left
 
 	c.output = make(chan engine.Result)
 
@@ -71,8 +71,8 @@ func (c *classic) Shuffle(times int) {
 	c.drawPile = cards.Shuffle(c.drawPile, times)
 }
 
-func (g *classic) GetDrawPile() []engine.Card {
-	return g.drawPile
+func (c *classic) GetDrawPile() []engine.Card {
+	return c.drawPile
 }
 
 func (c *classic) GetPlayers() []engine.Player {
@@ -116,4 +116,9 @@ func (c *classic) GetDiscardedPile() []engine.Card {
 
 func (c *classic) Close() {
 	close(c.output)
+}
+
+// NewPlayer implements engine.Game interface method NewPlayer
+func (c *classic) NewPlayer(name string) engine.Player {
+	return &player{name: name}
 }

@@ -9,8 +9,8 @@ import (
 type metadata byte
 
 var (
-	minversion string
-	version    string
+	minversion = "0"
+	version    = "0"
 )
 
 func (metadata) GetName() string {

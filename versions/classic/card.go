@@ -13,7 +13,7 @@ const (
 	skipValue      = "skip"
 	draw2Value     = "+2"
 	draw4Value     = "+4"
-	undefinedColor = "undefinded_color"
+	undefinedColor = "undefined_color"
 	wildValue      = "wild"
 	draw4WildValue = "+4,wild"
 
@@ -29,7 +29,7 @@ var (
 	drawReg   = regexp.MustCompile(`^\+\d(,wild)?$`)
 )
 
-//rawCard is a struct to load cards from json configuration
+// rawCard is a struct to load cards from json configuration
 type rawCard struct {
 	Value  string   `json:"value"`
 	Count  int      `json:"count"`
@@ -150,7 +150,7 @@ func (c *card) isDraw() bool {
 	return drawReg.MatchString(c.GetValue())
 }
 
-//isValid returns true if the card is valid, usefull for load from json
+// isValid returns true if the card is valid, usefully for load from json
 func (c *card) isValid() bool {
 	return (c.isNumber() ||
 		c.isReverse() ||
@@ -159,12 +159,12 @@ func (c *card) isValid() bool {
 		c.isDraw()) && c.isColorValid()
 }
 
-//isColorValid checks if the card has the correct color based on its value
+// isColorValid checks if the card has the correct color based on its value
 func (c *card) isColorValid() bool {
 	switch {
 	case c.isNumber() || //is number between 0 and 9
 		c.isReverse() || //is reverse card
-		(c.isSkip() && !c.isWild()) || //is skip card (it ignored if is skip by draw card)
+		(c.isSkip() && !c.isWild()) || //is skip card (it ignored if is skipped by draw card)
 		(c.isDraw() && !c.isWild()): //is draw card (it ignored if is wild card)
 		return c.GetColor() == blueColor ||
 			c.GetColor() == redColor ||

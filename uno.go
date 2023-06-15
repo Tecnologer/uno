@@ -9,7 +9,7 @@ import (
 
 const (
 	leftDirection  = "left"
-	rigthDirection = "rigth"
+	rightDirection = "right"
 )
 
 var games = map[string]engine.Game{}
@@ -49,20 +49,45 @@ func StartGame(gameName string) error {
 
 	game.SetDirection(leftDirection)
 	game.Shuffle(0)
-	game.PlayCard(firstPlayer, firstCard)
+
+	err = game.PlayCard(firstPlayer, firstCard)
+	if err != nil {
+		return err
+	}
+
 	game.SetNextPlayer(firstPlayer)
 
 	return nil
 }
 
 func register(output chan engine.Result) {
-	for result := range output {
-
-	}
+	// TODO: Implement this function
 }
 
+// RegisterPlayer registers a player in a game
 func RegisterPlayer(gameName, playerName string) error {
+	game, ok := games[gameName]
+	if !ok {
+		return fmt.Errorf("there isn't a game with name %s", gameName)
+	}
 
+	player := game.NewPlayer(playerName)
+	err := game.RegisterPlayer(player)
+	if err != nil {
+		return errors.Wrap(err, "uno: register player")
+	}
+
+	return nil
 }
 
-func CloseGame(name string)
+// CloseGame closes the game
+func CloseGame(name string) error {
+	game, ok := games[name]
+	if !ok {
+		return fmt.Errorf("there isn't a game with name %s", name)
+	}
+
+	game.Close()
+
+	return nil
+}
